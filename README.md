@@ -4,9 +4,15 @@ Generate your message exchange protocol layer. Make your life easier and don't r
 and have code generated.
 
 
+## MicroPython limitations
+
+- no support for `enum` classes
+- no support for `abc` module
+
+
 ## References
 
-- [Texthon template processor](texthon.chipsforbrain.org/)
+- [Texthon template processor](http://texthon.chipsforbrain.org/)
 - [Raspberry Pi Pico documentation](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html)
 
 

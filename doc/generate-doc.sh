@@ -46,7 +46,7 @@ generate_help() {
 }
 
 
-# generate_help
+generate_help
 
 
 $SCRIPT_DIR/generate_small.sh
