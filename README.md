@@ -3,6 +3,23 @@
 Generate your message exchange protocol layer. Make your life easier and don't repeat yourself. Define your messages
 and have code generated.
 
+Generator is useful in case of communication between *Raspberry Pi Pico* (sensor) plugged into USB port of PC (host).
+Generator properly handles corner cases such as keyboard interrupt character (`0x03`) and new line character (`\n`). In
+first case interrupt handling have to be disabled. In second case new line causes read interrupt, so reading operation 
+have to be resumed.
+
+Main motivation of creating the project reluctance to do repetitive activities (copy-paste of code fragments to implement 
+new messages) and error-prone defining of data frames.
+
+
+## Generating protocol
+
+To generate protocol codes do following steps:
+1. define configuration `.json` file (example: [examples/pico-simple/pico-protocol.json](examples/pico-simple/pico-protocol.json))
+2. execute generator `python3 -m mpyserialprotogen` with config file passed as argument
+
+Type `python3 -m mpyserialprotogen --help` for supported input arguemnts or open [help page](doc/cmdargs.md).
+
 
 ## MicroPython limitations
 
