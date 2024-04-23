@@ -39,7 +39,7 @@ class SensorConnector:
 
         # INTERNAL_TEMP_RQST
         if command == 0x03:
-            # no params
+            # no fields
             return [command]
 
         # TEST_BYTES_RQST

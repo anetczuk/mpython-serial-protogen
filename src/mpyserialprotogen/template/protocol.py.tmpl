@@ -45,7 +45,7 @@ class $class_name:
 #{  for message_def in receive_messages:
 #! 		message_id = message_def['id']
 #! 		message_value = message_def['value']
-#!      message_params = message_def['params']
+#!      message_params = message_def['fields']
         # $message_id
 #{		if message_params:
         ## parameters:
@@ -58,12 +58,12 @@ class $class_name:
 #{		    for param in message_params:
                 $<${ read_param(param) }
 #}
-#!          param_names    = message_def['param_names']
-#!          params_header  = utils.params_explode( param_names )
+#!          field_names    = message_def['field_names']
+#!          params_header  = utils.params_explode( field_names )
             return [command, $params_header]
 #}
 #{		else:
-            # no params
+            # no fields
             return [command]
 #}
 
@@ -77,9 +77,9 @@ $>
 #{	for message_def in send_messages:
 #!  	message_id     = message_def['id']
 #!  	message_value  = message_def['value']
-#!      message_params = message_def['params']
-#!      param_names    = message_def['param_names']
-#!      params_header  = utils.params_explode( [ "self" ] + param_names )
+#!      message_params = message_def['fields']
+#!      field_names    = message_def['field_names']
+#!      params_header  = utils.params_explode( [ "self" ] + field_names )
 
     ## send '$message_id' message
 #{		if message_params:

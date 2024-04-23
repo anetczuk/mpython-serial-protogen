@@ -142,11 +142,11 @@ def generate_file(template_path, template_params, output_path):
 
 def prepare_messages(messages_defs):
     for message in messages_defs:
-        params = message["params"]
-        param_names = []
-        for par in params:
-            param_names.append(par["id"])
-        message["param_names"] = param_names
+        fields = message["fields"]
+        field_names = []
+        for par in fields:
+            field_names.append(par["id"])
+        message["field_names"] = field_names
 
 
 # ===================================================================
@@ -180,7 +180,7 @@ def read_messages_defs_csv(dataMatrix):
         messages_dict = {}
         messages_dict["id"] = message_id
         messages_dict["direction"] = direction
-        messages_dict["params"] = method_args_list
+        messages_dict["fields"] = method_args_list
 
         messages_defs.append(messages_dict)
 
