@@ -109,6 +109,7 @@ def generate_device(config_dict, device_config, send_messages, receive_messages,
         "class_name": class_name,
         "send_messages": send_messages,
         "receive_messages": receive_messages,
+        "output_dir": output_dir,
     }
 
     template_path = os.path.join(SCRIPT_DIR, "template", class_template)

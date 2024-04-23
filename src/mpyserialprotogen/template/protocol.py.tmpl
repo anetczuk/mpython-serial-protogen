@@ -1,9 +1,10 @@
 #* main entry
 
 #load "utils.texhon" as utils
+#import mpyserialprotogen.template.utils as py_utils
 
 
-#template main( config_dict, class_name, send_messages, receive_messages )
+#template main( config_dict, class_name, send_messages, receive_messages, output_dir )
 #!
 #!  message_id_type = config_dict['message_id_type']
 #!  package_name = config_dict['package_name']
@@ -15,16 +16,19 @@
 \# Project website: https://github.com/anetczuk/mpython-serial-protogen
 \#
 
+#! py_utils.copy_file( "static/channel.py", output_dir + "/" )
+#! py_utils.copy_file( "static/logger.py", output_dir + "/" )
 from ${package_name}.channel import AbstractChannel
+from ${package_name}.logger import Logger
 
 
 \# pylint: disable=C0103
 
 
 class $class_name:
-    def __init__(self, channel: AbstractChannel, logger):
+    def __init__(self, channel: AbstractChannel, logger: Logger):
         self.channel: AbstractChannel = channel  # communication medium
-        self.logger = logger
+        self.logger: Logger = logger
 
     def receive_message(self):
 #{  if message_id_type == "str": 

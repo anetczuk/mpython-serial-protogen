@@ -5,15 +5,16 @@
 #
 
 from picoserial.channel import AbstractChannel
+from picoserial.logger import Logger
 
 
 # pylint: disable=C0103
 
 
 class SensorConnector:
-    def __init__(self, channel: AbstractChannel, logger):
+    def __init__(self, channel: AbstractChannel, logger: Logger):
         self.channel: AbstractChannel = channel  # communication medium
-        self.logger = logger
+        self.logger: Logger = logger
 
     def receive_message(self):
         command = self.channel.read_int(1)
