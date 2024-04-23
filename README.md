@@ -12,6 +12,12 @@ Main motivation of creating the project reluctance to do repetitive activities (
 new messages) and error-prone defining of data frames.
 
 
+## Raspberry Pi Pico example
+
+In examples directory is simple use case of the generator. It consists of steering onboard LED and reading inner 
+temperature sensor. More details [here](examples/pico-simple/README.md).
+
+
 ## Generating protocol
 
 To generate protocol codes do following steps:
@@ -19,6 +25,19 @@ To generate protocol codes do following steps:
 2. execute generator `python3 -m mpyserialprotogen` with config file passed as argument
 
 Type `python3 -m mpyserialprotogen --help` for supported input arguemnts or open [help page](doc/cmdargs.md).
+
+
+## Installation
+
+Installation of package can be done by:
+ - to install package from downloaded ZIP file execute: `pip3 install --user -I file:mpython-serial-protogen-master.zip#subdirectory=src`
+ - to install package directly from GitHub execute: `pip3 install --user -I git+https://github.com/anetczuk/mpython-serial-protogen.git#subdirectory=src`
+ - uninstall: `pip3 uninstall mpyserialprotogen`
+
+Installation For development:
+ - `src/install-deps.sh` to install package dependencies only (`requirements.txt`)
+ - `src/install-package.sh` to install package in standard way through `pip` (with dependencies)
+ - `src/install-package-dev.sh` to install package in developer mode using `pip` (with dependencies)
 
 
 ## MicroPython limitations

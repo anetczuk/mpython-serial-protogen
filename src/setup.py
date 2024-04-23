@@ -27,7 +27,7 @@ packages_list = find_packages(include=["mpyserialprotogen", "mpyserialprotogen.*
 
 ## additional data to install
 packages_data = {
-    "rosdiagram": [
+    "mpyserialprotogen": [
         "*.txt",
         "template/*.tmpl",
         "template/*.texhon",
@@ -49,7 +49,7 @@ install_reqs.extend([])  # additional packages to install
 
 setup(
     name="micropython-serial-protogen",
-    version="2.2.1",
+    version="1.0.1",
     description="Generate message exchange protocol layer for MicroPython",
     url="https://github.com/anetczuk/mpython-serial-protogen",
     author="anetczuk",
