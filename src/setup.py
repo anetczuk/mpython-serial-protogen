@@ -48,7 +48,7 @@ install_reqs.extend([])  # additional packages to install
 ## every time setup info changes then version number should be increased
 
 setup(
-    name="micropython-serial-protogen",
+    name="mpyserialprotogen",
     version="1.0.1",
     description="Generate message exchange protocol layer for MicroPython",
     url="https://github.com/anetczuk/mpython-serial-protogen",
