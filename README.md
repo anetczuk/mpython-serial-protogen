@@ -17,6 +17,61 @@ new messages) and error-prone defining of data frames.
 In examples directory is simple use case of the generator. It consists of steering onboard LED and reading inner 
 temperature sensor. More details [here](examples/pico-simple/README.md).
 
+Example consists of following `JSON` config:
+
+<!-- insertstart include="examples/pico-simple/pico-protocol.json" pre="\n\n```\n" post="\n```\n\n" -->
+
+```
+{
+    "_description_": "Host side config",
+    "device_a": {
+        "class_name": "HostConnector",
+        "class_template": "protocol.py.tmpl",
+        "enum_name": "HostMessage",
+        "enum_template": "message.py.tmpl"
+    },
+
+    "_description_": "Sensor side config",
+    "device_b": {
+        "class_name": "SensorConnector",
+        "class_template": "protocol.py.tmpl",
+        "enum_name": "SensorMessage",
+        "enum_template": "message.py.tmpl"
+    },
+
+	"_description_": "Package name to place code into",
+    "package_name": "picoserial",
+
+    "_description_": "type of message identifier, allowed: str, int or hex",
+    "message_id_type": "hex",
+
+    "_description_": [
+    	"definition of messages",
+		"allowed field types: bool, byte, int16, bytearray, str",
+        "allowed message direction:",
+        "  <empty>   both directions",
+        "  BOTH      both directions",
+        "  TO_A      from MCU (RPi Pico) to Host (PC)",
+        "  TO_B      from Host to MCU",
+        "  DISABLED  skip item"
+    ],
+    "messages": [
+        { "id": "SET_KBD_INTR_RQST",        "direction": "TO_B", "fields": [ {"id": "new_state", "type": "bool"} ] },
+        { "id": "SET_INTERNAL_LED_RQST",    "direction": "TO_B", "fields": [ {"id": "new_state", "type": "bool"} ] },
+        { "id": "INTERNAL_TEMP_RQST",       "direction": "TO_B", "fields": [] },
+        { "id": "TEST_BYTES_RQST",          "direction": "TO_B", "fields": [ {"id": "data_bytes", "type": "bytearray"}, {"id": "transfer_num", "type": "int16"} ] },
+        { "id": "TEST_TEXT_RQST",           "direction": "TO_B", "fields": [ {"id": "content", "type": "str"}, {"id": "transfer_num", "type": "int16"} ] },
+
+        { "id": "UNKNOWN_REQUEST_RSPNS",    "direction": "TO_A", "fields": [ {"id": "message", "type": "byte"} ] },
+        { "id": "INTERNAL_TEMP_RSPNS",      "direction": "TO_A", "fields": [ {"id": "temperature", "type": "int16"} ] },
+        { "id": "TEST_BYTES_RSPNS",         "direction": "TO_A", "fields": [ {"id": "data_bytes", "type": "bytearray"} ] },
+        { "id": "TEST_TEXT_RSPNS",          "direction": "TO_A", "fields": [ {"id": "content", "type": "str"} ] }
+    ]
+}
+```
+
+<!-- insertend -->
+
 
 ## Generating protocol
 

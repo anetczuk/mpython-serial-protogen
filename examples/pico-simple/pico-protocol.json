@@ -1,38 +1,36 @@
 {
-    "_description_": [
-        "Parameters description:",
-        "message direction:",
-        "  <empty>   both directions",
-        "  BOTH      both directions",
-        "  TO_A      from MCU (RPi Pico) to Host (PC)",
-        "  TO_B      from Host to MCU",
-        "  DISABLED  skip item"
-    ],
-
+    "_description_": "Host side config",
     "device_a": {
-        "_description_": "Host side items",
-
         "class_name": "HostConnector",
         "class_template": "protocol.py.tmpl",
         "enum_name": "HostMessage",
         "enum_template": "message.py.tmpl"
     },
 
+    "_description_": "Sensor side config",
     "device_b": {
-        "_description_": "Sensor side items",
-
         "class_name": "SensorConnector",
         "class_template": "protocol.py.tmpl",
         "enum_name": "SensorMessage",
         "enum_template": "message.py.tmpl"
     },
 
+	"_description_": "Package name to place code into",
     "package_name": "picoserial",
 
-    "_description_": "type of message identifier: str, int or hex",
+    "_description_": "type of message identifier, allowed: str, int or hex",
     "message_id_type": "hex",
 
-    "_description_": "data types: bool, byte, int16, bytearray, str",
+    "_description_": [
+    	"definition of messages",
+		"allowed field types: bool, byte, int16, bytearray, str",
+        "allowed message direction:",
+        "  <empty>   both directions",
+        "  BOTH      both directions",
+        "  TO_A      from MCU (RPi Pico) to Host (PC)",
+        "  TO_B      from Host to MCU",
+        "  DISABLED  skip item"
+    ],
     "messages": [
         { "id": "SET_KBD_INTR_RQST",        "direction": "TO_B", "fields": [ {"id": "new_state", "type": "bool"} ] },
         { "id": "SET_INTERNAL_LED_RQST",    "direction": "TO_B", "fields": [ {"id": "new_state", "type": "bool"} ] },
