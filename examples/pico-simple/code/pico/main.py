@@ -27,7 +27,7 @@ def start(logger: Logger):
     poll_obj.register(sys.stdin, select.POLLIN)
 
     channel = SysStreamChannel()
-    connector = SensorConnector(channel, logger)
+    connector = SensorConnector(channel)
 
     keyboard_interrupt_enabled = True
 

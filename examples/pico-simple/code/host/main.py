@@ -69,7 +69,7 @@ def main():
         logger = PrintLogger()
         medium.flush()
         channel = SerialChannel(medium)
-        connector = HostConnector(channel, logger)
+        connector = HostConnector(channel)
 
         # disable keyboard interrupts (allow value 0x03)
         logger.info("disabling Pico keyboard interrupt")

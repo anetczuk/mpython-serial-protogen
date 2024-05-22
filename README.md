@@ -26,7 +26,7 @@ Example consists of following `JSON` config:
     "_description_": "Host side config",
     "device_a": {
         "class_name": "HostConnector",
-        "class_template": "protocol.py.tmpl",
+        "class_template": "protocol_lookup_dict.py.tmpl",
         "enum_name": "HostMessage",
         "enum_template": "message.py.tmpl"
     },
@@ -34,7 +34,7 @@ Example consists of following `JSON` config:
     "_description_": "Sensor side config",
     "device_b": {
         "class_name": "SensorConnector",
-        "class_template": "protocol.py.tmpl",
+        "class_template": "protocol_lookup_dict.py.tmpl",
         "enum_name": "SensorMessage",
         "enum_template": "message.py.tmpl"
     },

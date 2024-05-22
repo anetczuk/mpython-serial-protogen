@@ -87,6 +87,10 @@ def generate_message_values(messages_list, message_id_type):
         if "value" in message:
             continue
         counter += 1
+        if counter == 3:
+            # skip keyboard interrupt character
+            counter += 1
+
         if message_id_type == "str":
             message_id = message["id"]
             message["value"] = f'"{message_id}"'

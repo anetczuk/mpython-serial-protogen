@@ -19,27 +19,47 @@
 #! py_utils.copy_file( "static/channel.py", output_dir + "/" )
 #! py_utils.copy_file( "static/logger.py", output_dir + "/" )
 from ${package_name}.channel import AbstractChannel
-from ${package_name}.logger import Logger
 
 
 \# pylint: disable=C0103
 
 
 class $class_name:
-    def __init__(self, channel: AbstractChannel, logger: Logger):
+    def __init__(self, channel: AbstractChannel):
         self.channel: AbstractChannel = channel  # communication medium
-        self.logger: Logger = logger
+
+    def wait_message(self):
+        while True:
+            message = self.receive_message()
+            if message is None:
+                # no message
+                continue
+            if message[0] is None:
+                # unknown message
+                continue
+            return message
+
+    def wait_message_type(self, message_type):
+        while True:
+            message = self.receive_message()
+            if message is None:
+                # no message
+                continue
+            if message[0] is not message_type:
+                # message type not match
+                continue
+            return message
 
     def receive_message(self):
 #{  if message_id_type == "str": 
         command = self.channel.read_text()
 #}
 #{  else:
-        command = self.channel.read_int(1)
+        command = self.channel.read_byte()
 #}
 
         if command is None:
-            # no incoming message
+            # no incoming message (timeout)
             return None
 
 #{  for message_def in receive_messages:
@@ -68,9 +88,14 @@ class $class_name:
 #}
 
 #}
-        if self.logger:
-            self.logger.error(f"unknown message: '{command}'")
+        self._handle_unknown_command(command)
+
+        # unknown message
         return [None, command]
+
+    def _handle_unknown_command(self, command):
+        # override if needed
+        pass
 
     ## ============= send methods ===============
 $>
@@ -93,7 +118,7 @@ $>
         self.channel.write_text($message_value)
 #}
 #{      else:
-        self.channel.write_int($message_value, 1)  # "$message_id"
+        self.channel.write_byte($message_value)  # "$message_id"
 #}
 #{		for param in message_params:
             $<${ write_param(param) }
@@ -106,13 +131,19 @@ $>
 #!  param_id = param_data['id']
 #! 	param_type = param_data["type"]
 #{	if param_type == "bool":
-            $param_id = self.channel.read_int(1)$>
+            $param_id = self.channel.read_byte()$>
 #}
 #{	elif param_type == "byte":
+            $param_id = self.channel.read_byte()$>
+#}
+#{	elif param_type == "int8":
             $param_id = self.channel.read_int(1)$>
 #}
 #{	elif param_type == "int16":
             $param_id = self.channel.read_int(2)$>
+#}
+#{	elif param_type == "int32":
+            $param_id = self.channel.read_int(4)$>
 #}
 #{	elif param_type == "bytearray":
             data_size = self.channel.read_int(2)
@@ -132,13 +163,19 @@ $>
 #!  param_id = param_data['id']
 #! 	param_type = param_data["type"]
 #{	if param_type == "bool":
-        self.channel.write_int($param_id, 1)$>
+        self.channel.write_byte($param_id)$>
 #}
 #{	elif param_type == "byte":
+        self.channel.write_byte($param_id)$>
+#}
+#{	elif param_type == "int8":
         self.channel.write_int($param_id, 1)$>
 #}
 #{	elif param_type == "int16":
         self.channel.write_int($param_id, 2)$>
+#}
+#{	elif param_type == "int32":
+        self.channel.write_int($param_id, 4)$>
 #}
 #{	elif param_type == "bytearray":
         self.channel.write_int(len($param_id), 2)

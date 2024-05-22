@@ -76,10 +76,15 @@ if [[ ! -z $UPLOAD ]]; then
     # reset previous connection (otherwise rshell will hang on connection)
     sudo ~/.local/bin/ampy --port /dev/ttyACM0 reset
 
-	sudo rshell mkdir /pyboard/picoserial
-	sudo rshell cp $PROJ_DIR/picoserial/* /pyboard/picoserial
+	if [ -d "$PROJ_DIR/__pycache__" ]; then
+		! rm -r $PROJ_DIR/__pycache__
+	fi
+	sudo rshell rsync $PROJ_DIR /pyboard
 
-    sudo rshell cp $PROJ_DIR/pico/* /pyboard
+	if [ -d "$PROJ_DIR/../../picoserial/__pycache__" ]; then
+		! rm -r $PROJ_DIR/../../picoserial/__pycache__
+	fi
+	sudo rshell rsync $PROJ_DIR/../../picoserial /pyboard/picoserial
 
     echo "upload completed"
     exit 0
