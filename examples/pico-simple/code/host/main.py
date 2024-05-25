@@ -20,7 +20,7 @@ from host.printlogger import PrintLogger
 
 
 def read_pico_temperature(connector: HostConnector):
-    connector.send_INTERNAL_TEMP_RQST()
+    connector.send_internal_temp_rqst()
     message = connector.receive_message()
     temperature = message[1]
     if temperature is None:
@@ -73,22 +73,22 @@ def main():
 
         # disable keyboard interrupts (allow value 0x03)
         logger.info("disabling Pico keyboard interrupt")
-        connector.send_SET_KBD_INTR_RQST(0)
+        connector.send_set_kbd_intr_rqst(0)
         time.sleep(0.1)  # wait a bit to propagate the request
 
-        connector.send_SET_INTERNAL_LED_RQST(1)
+        connector.send_set_internal_led_rqst(1)
 
         try:
             while True:
-                connector.send_INTERNAL_TEMP_RQST()
+                connector.send_internal_temp_rqst()
                 handle_message(connector, logger)
                 time.sleep(1)
 
         except KeyboardInterrupt:
             logger.info("enabling Pico keyboard interrupt")
-            connector.send_SET_INTERNAL_LED_RQST(0)
+            connector.send_set_internal_led_rqst(0)
             # enable keyboard interrupt
-            connector.send_SET_KBD_INTR_RQST(1)
+            connector.send_set_kbd_intr_rqst(1)
             raise
 
     return 0

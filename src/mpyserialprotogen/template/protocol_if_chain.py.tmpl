@@ -101,6 +101,7 @@ class $class_name:
 $>
 #{	for message_def in send_messages:
 #!  	message_id     = message_def['id']
+#! 		message_id_lower = message_id.lower()
 #!  	message_value  = message_def['value']
 #!      message_params = message_def['fields']
 #!      field_names    = message_def['field_names']
@@ -113,7 +114,7 @@ $>
     ##    ${ param['id'] }: ${ param['type'] }
 #}
 #}
-    def send_$message_id($params_header):
+    def send_${message_id_lower}($params_header):
 #{      if message_id_type == "str": 
         self.channel.write_text($message_value)
 #}

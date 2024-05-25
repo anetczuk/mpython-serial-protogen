@@ -67,7 +67,7 @@ def start(logger: Logger):
                 temp = board.read_temperaure()
                 temp_date = int(temp * 100)
                 # logger.info(f"sending temperature data: {temp} {temp_date}")
-                connector.send_INTERNAL_TEMP_RSPNS(temp_date)
+                connector.send_internal_temp_rspns(temp_date)
 
             elif command == HostMessage.SET_INTERNAL_LED_RQST:
                 value = command_data[1]
@@ -87,20 +87,20 @@ def start(logger: Logger):
                 transfer_num = command_data[2]
                 # logger.info(f"sending test bytes data: {data_content} {transfer_num}")
                 for _ in range(0, transfer_num):
-                    connector.send_TEST_BYTES_RSPNS(data_content)
+                    connector.send_test_bytes_rspns(data_content)
 
             elif command == HostMessage.TEST_TEXT_RQST:
                 data_content = command_data[1]
                 transfer_num = command_data[2]
                 # logger.info(f"sending test text data: {data_content} {transfer_num}")
                 for _ in range(0, transfer_num):
-                    connector.send_TEST_TEXT_RSPNS(data_content)
+                    connector.send_test_text_rspns(data_content)
 
             else:
                 # unhandled command
                 board.blink_led(0.01)
                 logger.warn(f"unhandled command: {command_data}")
-                connector.send_UNKNOWN_REQUEST_RSPNS(command)
+                connector.send_unknown_request_rspns(command)
 
 
 # ==========================================================

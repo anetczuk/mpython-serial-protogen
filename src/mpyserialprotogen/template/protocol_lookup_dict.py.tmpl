@@ -32,8 +32,9 @@ class $class_name:
         self.lookup_dict = {
 #{  for message_def in receive_messages:
 #! 		message_id = message_def['id']
+#! 		message_id_lower = message_id.lower()
 #! 		message_value = message_def['value']
-                            ${message_value}: self._handle_${message_id},  # $message_id
+                            ${message_value}: self._handle_${message_id_lower},  # $message_id
 #}
                             }
 
@@ -85,6 +86,7 @@ class $class_name:
 #*
 #{  for message_def in receive_messages:
 #! 		message_id = message_def['id']
+#! 		message_id_lower = message_id.lower()
 #! 		message_value = message_def['value']
 #!      message_params = message_def['fields']
     # $message_id
@@ -94,7 +96,7 @@ class $class_name:
     ##    ${ param['id'] }: ${ param['type'] }
 #}
 #}
-    def _handle_${message_id}(self):
+    def _handle_${message_id_lower}(self):
 #{		if message_params:
 #{		    for param in message_params:
                 $<${ read_param(param) }
@@ -113,6 +115,7 @@ class $class_name:
 $>
 #{	for message_def in send_messages:
 #!  	message_id     = message_def['id']
+#! 		message_id_lower = message_id.lower()
 #!  	message_value  = message_def['value']
 #!      message_params = message_def['fields']
 #!      field_names    = message_def['field_names']
@@ -125,7 +128,7 @@ $>
     ##    ${ param['id'] }: ${ param['type'] }
 #}
 #}
-    def send_$message_id($params_header):
+    def send_${message_id_lower}($params_header):
 #{      if message_id_type == "str": 
         self.channel.write_text($message_value)
 #}
